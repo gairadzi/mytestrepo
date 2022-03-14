@@ -9,7 +9,7 @@ jobs:
     steps:
 
     - name: generate tags
-      run: echo "::set-output name=tags::gairadzi/${{ github.repository.name }}:${REF_NAME:1},gairadzi/${{ github.repository.name }}:latest"
+      run: echo "::set-output name=tags::gairadzi/${{ github.event.repository.name }}:${REF_NAME:1},gairadzi/${{ github.event.repository.name }}:latest"
       #run: echo "::set-output name=tags::rebooto/vaxiin-server:${REF_NAME:1},rebooto/vaxiin-server:latest"
       id: gen_tags
       env:
