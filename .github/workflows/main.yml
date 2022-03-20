@@ -9,11 +9,29 @@ jobs:
     steps:
 
     - name: generate tags
-      run: echo "::set-output name=tags::gairadzi/${{ github.event.repository.name }}:${REF_NAME:1},gairadzi/${{ github.event.repository.name }}:latest"
-      #run: echo "::set-output name=tags::rebooto/vaxiin-server:${REF_NAME:1},rebooto/vaxiin-server:latest"
-      id: gen_tags
-      env:
-        REF_NAME: ${{ github.ref_name }}
+    - name: checkout
+      uses: actions/checkout@v2
 
-    - name: test
-      run: echo ${{ steps.gen_tags.outputs.tags }}
+    - name: replace in file
+      run: sed -i'' -e 's?there?${{ github.ref_name }}?' hello
+
+    - name: list files
+      run: ls
+
+    - name: show file
+      run: cat hello
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: replace in file
+      run: sed -i'' -e 's?there?${{ github.ref_name }}?' hello
+
+    - name: list files
+      run: ls
+
+    - name: show file
+      run: cat hello
