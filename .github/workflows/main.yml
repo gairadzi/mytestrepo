@@ -27,7 +27,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: replace in file
-      run: gsed 's?there?${{ github.ref_name }}?' hello
+      run: sed --version
+      #run: sed 's?there?${{ github.ref_name }}?' hello
 
     - name: list files
       run: ls
