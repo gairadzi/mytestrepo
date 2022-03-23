@@ -1,0 +1,12 @@
+name: release
+
+on:
+  pull_request:
+
+jobs:
+  build-ubuntu-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@v2
