@@ -9,6 +9,10 @@ jobs:
   run-test:
     runs-on: ubuntu-latest
     steps:
+
+    - name: checkout code
+      uses: actions/checkout@v4
+
     - name: Set commit status as pending
       uses: myrotvorets/set-commit-status-action@master
       with:
