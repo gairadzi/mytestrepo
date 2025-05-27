@@ -11,3 +11,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           statusName: "Mosko"
           timeoutSeconds: 5
+
+      - name: fail if not success
+        if: steps.wait-for-status.outputs.state != 'success'
+        run: exit 1
