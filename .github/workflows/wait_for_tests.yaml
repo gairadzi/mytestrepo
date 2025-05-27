@@ -1,6 +1,7 @@
 name: Check if tests must run
 on:
   push:
+  worflow_run:
 jobs:
   check-for-test:
     runs-on: ubuntu-latest
