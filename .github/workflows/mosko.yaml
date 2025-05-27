@@ -9,10 +9,6 @@ jobs:
   run-test:
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - name: Set commit status as pending
       uses: myrotvorets/set-commit-status-action@master
       with:
@@ -21,14 +17,22 @@ jobs:
         context: Mosko
         sha: ${{ github.sha }}
 
-    - name: Do the actual work
-      run: exit 0
+    - name: Check if dbt files changed
+      id: changed-dbt-files
+      uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46
+      with:
+        files: |
+          dbt/**
 
-    - name: Set final commit status
+    - name: Set final commit status if no files changed
       uses: myrotvorets/set-commit-status-action@master
-      if: always()
+      if: ${{ !steps.changed-dbt-files.outputs.any_changed }}
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         context: Mosko
         status: ${{ job.status }}
         sha: ${{ github.sha }}
+
+    - name: trigger test if files changed
+      if: ${{ steps.changed-dbt-files.outputs.any_changed }}
+      run: echo "I need to trigger tests!!!"
