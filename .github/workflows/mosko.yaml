@@ -30,7 +30,7 @@ jobs:
 
     - name: Set final commit status if no files changed
       uses: myrotvorets/set-commit-status-action@master
-      if: steps.changed-dbt-files.outputs.any_changed != "true"
+      if: steps.changed-dbt-files.outputs.any_changed != 'true'
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         context: Mosko
@@ -38,5 +38,5 @@ jobs:
         sha: ${{ github.sha }}
 
     - name: trigger test if files changed
-      if: steps.changed-dbt-files.outputs.any_changed == "true"
+      if: steps.changed-dbt-files.outputs.any_changed == 'true'
       run: echo "I need to trigger tests!!!"
