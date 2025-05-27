@@ -19,7 +19,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: pending
         context: Mosko
-        sha: ${{ github.head_ref }}
+        sha: ${{ github.sha }}
 
     - name: Do the actual work
       run: exit 0
@@ -31,4 +31,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         context: Mosko
         status: ${{ job.status }}
-        sha: ${{ github.head_ref }}
+        sha: ${{ github.sha }}
