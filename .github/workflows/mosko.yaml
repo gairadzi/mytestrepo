@@ -6,7 +6,7 @@ on:
         description: Deployment options
         required: true
 jobs:
-  run-test:
+  Mosko:
     runs-on: ubuntu-latest
     steps:
       - name: fail if not success
