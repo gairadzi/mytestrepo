@@ -1,0 +1,13 @@
+name: Check if tests must run
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_opt:
+        description: Deployment options
+        required: true
+jobs:
+  Mosko:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail if not success
+        run: exit 0
