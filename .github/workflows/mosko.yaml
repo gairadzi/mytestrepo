@@ -9,6 +9,7 @@ jobs:
   run-test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: Run the action # You would run your tests before this using the output to set state/desc
       uses: mapbox/create-status-check@v1
       with:
