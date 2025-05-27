@@ -1,0 +1,12 @@
+name: Check if tests must run
+on:
+  push:
+jobs:
+  check-for-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: autotelic/action-wait-for-status-check@v1
+        id: wait-for-status
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          statusName: "Mosko"
