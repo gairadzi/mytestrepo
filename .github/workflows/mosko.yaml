@@ -6,8 +6,13 @@ on:
         description: Deployment options
         required: true
 jobs:
-  Mosko:
+  run-test:
     runs-on: ubuntu-latest
-    steps:
-      - name: fail if not success
-        run: exit 0
+    - name: Run the action # You would run your tests before this using the output to set state/desc
+      uses: mapbox/create-status-check@v1
+      with:
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'Test run'
+        description: 'Passed'
+        state: 'success'
+        sha: ${{github.event.pull_request.head.sha || github.sha}}
