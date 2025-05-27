@@ -9,14 +9,22 @@ jobs:
   run-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Set commit status as pending
+      uses: myrotvorets/set-commit-status-action@master
       with:
-        ref: ${{ github.ref }}
-    - name: Run the action # You would run your tests before this using the output to set state/desc
-      uses: mapbox/create-status-check@v1
+        token: ${{ secrets.GITHUB_TOKEN }}
+        status: pending
+        context: Mosko
+        sha: ${{ github.head_ref }}
+
+    - name: Do the actual work
+      run: exit 0
+
+    - name: Set final commit status
+      uses: myrotvorets/set-commit-status-action@master
+      if: always()
       with:
-        authToken: ${{secrets.GITHUB_TOKEN}}
-        context: 'Test run'
-        description: 'Passed'
-        state: 'success'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        context: Mosko
+        status: ${{ job.status }}
         sha: ${{ github.head_ref }}
