@@ -1,0 +1,10 @@
+name: my-test-workflow
+on:
+  push:
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Best step
+      run: echo "I need to trigger tests!!!"

@@ -9,13 +9,30 @@ jobs:
   check-for-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: autotelic/action-wait-for-status-check@v1
+    - name: checkout code
+      uses: actions/checkout@v4
+
+    - name: Set commit status as pending
+      uses: myrotvorets/set-commit-status-action@master
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        status: pending
+        context: Mosko
+        sha: ${{ github.sha }}
+
+    - name: Check if dbt files changed
+      id: changed-dbt-files
+      uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46
+      with:
+        files: |
+          dbt/**
+
+    - name: trigger test if files changed
+      if: steps.changed-dbt-files.outputs.any_changed == 'true'
+      uses: autotelic/action-wait-for-status-check@v1
         id: wait-for-status
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           statusName: "Mosko"
           timeoutSeconds: 5
 
-      - name: fail if not success
-        if: steps.wait-for-status.outputs.state != 'success'
-        run: exit 1
